@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bio (2.0.5)
+    gdbm (2.1.0)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  bio
+  gdbm
+
+BUNDLED WITH
+   2.5.11
