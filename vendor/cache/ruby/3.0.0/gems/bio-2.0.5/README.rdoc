@@ -1,0 +1,266 @@
+--
+= README.rdoc - README for BioRuby
+Copyright:: Copyright (C) 2001-2007 Toshiaki Katayama <k@bioruby.org>,
+            Copyright (C) 2008      Jan Aerts <jandot@bioruby.org>
+            Copyright (C) 2011-2019 Naohisa Goto <ng@bioruby.org>
+License::   The Ruby License
+* The above statement is limited to this file. See below about BioRuby's
+  copyright and license.
+++
+
+= BioRuby
+
+Copyright (C) 2001-2019 Toshiaki Katayama <k@bioruby.org>
+
+BioRuby is an open source Ruby library for developing bioinformatics
+software.  Object oriented scripting language Ruby has many features
+suitable for bioinformatics research, for example, clear syntax to
+express complex objects, regular expressions for text handling as
+powerful as Perl's, a wide variety of libraries including web service
+etc.  As the syntax of the Ruby language is simple and very clean, we
+believe that it is easy to learn for beginners, easy to use for
+biologists, and also powerful enough for the software developers.
+
+In BioRuby, you can retrieve biological database entries from flat
+files, internet web servers and local relational databases.  These
+database entries can be parsed to extract information you need.
+Biological sequences can be treated with the fulfilling methods of the
+Ruby's String class and with regular expressions.  Daily tools like
+Blast, Fasta, Hmmer and many other software packages for biological
+analysis can be executed within the BioRuby script, and the results
+can be fully parsed to extract the portion you need.  BioRuby supports
+major biological database formats and provides many ways for accessing
+them through flatfile indexing, web services etc.  Various web
+services can be easily utilized by BioRuby.
+
+
+== FOR MORE INFORMATION
+
+See RELEASE_NOTES.rdoc for news and important changes in this version.
+
+=== Documents in this distribution
+
+==== Release notes, important changes and issues
+
+README.rdoc:: This file. General information and installation procedure.
+RELEASE_NOTES.rdoc:: News and important changes in this release.
+KNOWN_ISSUES.rdoc:: Known issues and bugs in BioRuby.
+doc/RELEASE_NOTES-*.rdoc:: Release notes for old versions.
+doc/Changes-1.3.rdoc:: News and incompatible changes from 1.2.1 to 1.3.0.
+doc/Changes-0.7.rd:: News and incompatible changes from 0.6.4 to 1.2.1.
+
+==== Tutorials and other useful information
+
+doc/Tutorial.rd:: BioRuby Tutorial.
+doc/Tutorial.rd.html:: HTML version of Tutorial.rd.
+
+==== BioRuby development
+
+ChangeLog:: History of changes.
+doc/ChangeLog-*:: ChangeLog for old versions.
+doc/ChangeLog-before-1.4.2:: changes before 1.4.2.
+doc/ChangeLog-before-1.3.1:: changes before 1.3.1.
+README_DEV.rdoc:: Describes ways to contribute to the BioRuby project, including coding styles and documentation guidelines.
+
+==== Documents written in Japanese
+
+doc/Tutorial.rd.ja:: BioRuby Tutorial written in Japanese.
+doc/Tutorial.rd.ja.html:: HTML version of Tutorial.rd.ja.
+
+==== Sample codes
+
+In sample/, There are many sample codes and demo scripts.
+
+=== WWW
+
+BioRuby's official website is at http://bioruby.org/.
+You will find links to related resources including downloads,
+mailing lists, Wiki documentation etc. in the top page.
+
+* http://bioruby.org/
+
+Mirror site is available, hosted on Open Bioinformatics Foundation (OBF).
+
+* http://bioruby.open-bio.org/
+
+== WHERE TO OBTAIN
+
+=== WWW
+
+The stable release is freely available from the BioRuby website.
+
+* http://bioruby.org/archive/
+
+=== RubyGems
+
+{RubyGems (packaging system for Ruby)}[http://rubygems.org/] version of
+the BioRuby package is also available for easy installation.
+
+* https://rubygems.org/gems/bio
+
+=== git
+
+If you need the latest development version, this is provided at
+
+* https://github.com/bioruby/bioruby
+
+and can be obtained by the following procedure:
+
+  % git clone git://github.com/bioruby/bioruby.git
+
+
+== REQUIREMENTS
+
+* Ruby 2.0.0 or later -- http://www.ruby-lang.org/
+  * Ruby 2.7.8, 3.0.6, 3.1.4, 3.2.2 or later is recommended.
+  * See KNOWN_ISSUES.rdoc for Ruby version specific problems.
+
+
+== OPTIONAL REQUIREMENTS
+
+Some optional libraries can be utilized to extend BioRuby's functionality.
+If your needs meets the following conditions, install them by using RubyGems,
+or download and install from the following web sites.
+
+Creating faster flatfile index using Berkley DB:
+
+* {GitHub:ruby-bdb}[https://github.com/knu/ruby-bdb]
+  (which took over {bdb}[https://github.com/ruby-bdb/bdb])
+  (No RubyGems available)
+  * {Oracle Berkeley DB}[http://www.oracle.com/technetwork/database/berkeleydb/index.html] and C compiler will be required.
+
+
+== INSTALL
+
+=== INSTALL by using RubyGems (recommended)
+
+If you are using RubyGems, just type
+
+  % gem install bio
+
+Alternatively, manually download bio-X.X.X.gem from 
+http://bioruby.org/archive/ and install it by using gems command.
+
+
+=== Running self-test
+
+To check if bioruby works fine on a machine, self-test codes are bundled.
+Note that some tests may need internet connection.
+
+To run tests,
+
+ % ruby test/runner.rb
+
+For those familiar with Rake,
+
+ % rake test
+
+also works.
+
+Before reporting test failure, please check KNOWN_ISSUES.rdoc about known
+platform-dependent issues.  We are happy if you write patches to solve the
+issues.
+
+
+== SETUP
+
+If you want to use the OBDA (Open Bio Database Access) to obtain database
+entries, copy a sample configuration file in the BioRuby distribution
+
+  bioruby-x.x.x/etc/bioinformatics/seqdatabase.ini
+
+to
+
+  /etc/bioinformatics/seqdatabase.ini	(system wide configuration)
+
+or
+
+  ~/.bioinformatics/seqdatabase.ini	(personal configuration)
+
+and change the contents according to your preference.  For more
+information on the OBDA, see http://obda.open-bio.org/ .
+
+
+== USAGE
+
+You can load all BioRuby classes just by requiring 'bio.rb'.  All the
+BioRuby classes and modules are located under the module name 'Bio' to
+separate the name space.
+
+  #!/usr/bin/env ruby
+  require 'bio'
+
+You can also read other documentation in the 'doc' directory.
+
+  bioruby-x.x.x/doc/
+
+
+== PLUGIN (Biogem)
+
+Many plugins (called Biogem) are now available. See http://biogems.info/
+for list of plugins and related software utilizing BioRuby.
+
+* http://biogems.info/
+
+Plugins (Biogems) listed below had been included in BioRuby in former days,
+and were split to separate packages to reduce complexity and external
+dependencies.
+
+* {bio-shell}[https://rubygems.org/gems/bio-shell]
+* {bio-executables}[https://rubygems.org/gems/bio-executables]
+* {bio-blast-xmlparser}[https://rubygems.org/gems/bio-blast-xmlparser]
+* {bioruby-phyloxml}[https://rubygems.org/gems/bioruby-phyloxml]
+  * NOTE: Please uninstall bio-phyloxml, that have been created as a
+    preliminary trial of splitting a module in 2012 and have not been
+    maintained after that.
+* {bio-biosql}[https://rubygems.org/gems/bio-biosql]
+
+Plugins (Biogems) listed below may be useful for running existing codes.
+
+* {bio-old-biofetch-emulator}[https://rubygems.org/gems/bio-old-biofetch-emulator] -- Emulates deprecated BioRuby's BioFetch server by using other existing web services.
+
+To develop your own plugin, see "Plugins" pages of BioRuby Wiki.
+
+* http://bioruby.open-bio.org/wiki/Plugins
+
+=== Recommended Plugins (gems)
+
+For existing BioRuby users, it is recommended to install the following gems:
+
+bio-shell :: If you use the BioRuby Shell.
+bio-executables :: If you use br_bio* commands.
+bio-old-biofetch-emulator :: If you run existing codes using BioFetch, including sample and demo codes in sample/.
+bio-blast-xmlparser :: If you treat BLAST XML result files and Expat XML parser (with development files) is installed in your system.
+bioruby-phyloxml :: If you use Bio::PhyloXML and Libxml2 (with developemnt files) is installed in your system.
+
+Note that it is NOT recommended to install bio-biosql unless you have
+really used Bio::SQL, because it depends on older version of ActiveRecords
+and ActiveSupport that may not be run on recent Ruby versions.
+
+
+== LICENSE
+
+BioRuby can be freely distributed under the same terms as Ruby.
+See the file COPYING (or COPYING.ja written in Japanese).
+
+As written in the file COPYING, see the file LEGAL for files distributed
+under different license.
+
+== REFERENCE
+
+If you use BioRuby in academic research, please consider citing the following
+publication.
+
+* BioRuby: Bioinformatics software for the Ruby programming language.
+  Naohisa Goto, Pjotr Prins, Mitsuteru Nakao, Raoul Bonnal, Jan Aerts and 
+  Toshiaki Katayama.
+  Bioinformatics (2010) 26(20): 2617-2619.
+  * {doi: 10.1093/bioinformatics/btq475}[http://bioinformatics.oxfordjournals.org/content/26/20/2617]
+  * {PMID: 20739307}[http://www.ncbi.nlm.nih.gov/pubmed/20739307]
+
+
+== CONTACT
+
+Current staff of the BioRuby project can be reached by sending e-mail
+to <staff@bioruby.org>.
+

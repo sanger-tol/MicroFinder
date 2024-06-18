@@ -1,0 +1,271 @@
+= BioRuby 2.0.5 RELEASE NOTES
+
+Some fixes have been made in BioRuby 2.0.5 after the release of 2.0.4.
+
+== Fixes
+
+* Bio::UniProtKB#ft: Additional bug fixes for parsing FT lines
+  since UniProt release 2019_11.
+  (https://github.com/bioruby/bioruby/issues/147 )
+* Bio::UniProtKB#oh: Fixed parse error when parsing 1A_AMVLE (P03589).
+* Bio::Blast::Remote::GenomeNet: Fixed errors caused by the change of
+  GenomeNet BLAST webpage's internal URL (which is unofficial
+  internal URL and may subject to be changed without notices).
+* Bio::PTS1: Fixed errors due to the PTS1 website URL change
+  from http to https.
+
+== Changes for developers
+
+=== Changes of CI (Continuous Integration)
+
+* Started using GitHub Actions for CI.
+* Stopped using Travis-CI for CI.
+* Fixed AppVeyor CI errors.
+
+=== Changes of Gemfile and related files
+
+* Gemfile: Added "matrix" and "rexml" gems that are excluded from
+  the default gems in recent Ruby versions.
+* gemfiles/*: Removed because of the CI changes.
+
+=== Others
+
+* .gitignore is added.
+
+
+
+= BioRuby 2.0.4 RELEASE NOTES
+
+Some fixes have been made in BioRuby 2.0.4 after the release of 2.0.3.
+
+== Fixes
+
+* Bio::UniProtKB#ft: Supports text format change of FT lines since
+  UniProt release 2019_11.
+  (https://github.com/bioruby/bioruby/issues/147 )
+* Bio::UniProtKB#protein_name and #synonyms methods may raise error
+  after calling Bio::UniProtKB#de method.
+
+
+
+= BioRuby 2.0.3 RELEASE NOTES
+
+Some bug fixes have been made in BioRuby 2.0.3 after the release of 2.0.2.
+
+== Bug fixes
+
+* Fix Ruby 3.0.0 Bio::Sequence::* issue.
+  (https://github.com/bioruby/bioruby/issues/137 )
+* Fix typo (https://github.com/bioruby/bioruby/pull/145 )
+
+== Incompatible changes
+
+=== Bio::Sequence::* incompatible changes since Ruby 3.0.0
+
+Since Ruby 3.0.0, the following methods in Bio::Sequence::NA,
+Bio::Sequence::AA, and Bio::Sequence::Generic return or yield
+String instance, instead of the Bio::Sequence::* instance.
+
+* dump
+* scrub
+
+For details about Ruby 3.0.0 incompatible changes, see
+{News for Ruby 3.0.0}[https://github.com/ruby/ruby/blob/v3_0_0/NEWS.md].
+
+
+
+= BioRuby 2.0.2 RELEASE NOTES
+
+Some bugs fixes have been made in BioRuby 2.0.2 after the release of 2.0.1.
+
+== Bug fixes
+
+* Fix NameError in Bio::Sequence#output(:embl)
+  (https://github.com/bioruby/bioruby/issues/135 )
+* Suppress warning: Gem::Specification#has_rdoc= is deprecated
+  (https://github.com/bioruby/bioruby/issues/138 )
+* Fix misspelling URL in README.rdoc
+
+== Known issues
+
+A known issue about Ruby 3.0 is added to KNOWN_ISSUES.rdoc.
+The issue will be fixed in the near future.
+
+
+
+= BioRuby 2.0.1 RELEASE NOTES
+
+Some bug fixes and improvements have been made to the BioRuby 2.0.1 after
+the version 2.0.0 is released.
+
+== Bug fixes
+
+* Bio::GFF::GFF2::Record.parse did not return correct object.
+
+== Improvement of sample scripts
+
+The following scripts in the sample/ directiry are newly added.
+
+* color_scheme_aa.rb: Example of Bio::ColorScheme for an amino acid sequence.
+* fastq2html.rb: Visualization of FASTQ sequences, colored by quality scores.
+* rev_comp.rb: Shows reverse-complement sequences of the given sequences.
+
+The floowing scripts are modified to fix bug and/or to improve features.
+
+* na2aa.rb: Completely rewritten to fix bug. Shows translated sequences.
+* color_scheme_na.rb: Added support for various sequence formats.
+
+=== CWL (Common Workflow Language) workflow files are added
+
+CWL (Common Workflow Language) workflow files are added for some sample
+scripts. The usage of each sample script will be clarified with the CWL
+workflow files.
+
+Two type of files are prepared for CWL workflow engine. *.cwl is a workflow
+definition file for each sample script. *.testdata.yaml describes sample
+input data for each CWL workflow.
+
+In this version, cwl files for the 3 sample scripts are added.
+
+* fastq2html.rb: fastq2html.cwl with fastq2html.testdata.yaml
+* na2aa.rb: na2aa.cwl with na2aa.testdata.yaml
+* rev_comp.rb: rev_comp.cwl with rev_comp.testdata.yaml
+
+
+
+= BioRuby 2.0.0 RELEASE NOTES
+
+A lot of changes have been made to the BioRuby 2.0.0 after the version 1.5.x
+is released. This document describes important and/or incompatible changes
+since the BioRuby 1.5.0 release.
+
+For known problems, see KNOWN_ISSUES.rdoc.
+
+== Features moved to separete gems
+
+Some features are moved to separate gems because of reducing complexity
+and/or to avoid external library dependency of BioRuby core.
+
+=== BioRuby Shell is moved to "bio-shell"
+
+BioRuby Shell is split to "bio-shell" gem.
+
+=== Executable files are moved to "bio-executables"
+
+To avoid unexpected loading of executable files by some Rails software,
+all executable commands are moved to "bio-executables" gem
+(except the "bioruby" command that is included in the above "bio-shell" gem).
+
+=== Fast BLAST XML result parser by using Expat XML Parser is moved to "bio-blast-xmlparser"
+
+Fast BLAST XML result parser by using Expat XML Parser is split to
+"bio-blast-xmlparser" gem, because of external C library dependency.
+Please install "bio-blast-xmlparser" gem if possible.
+If it is installed, BioRuby automatically use it.
+
+=== Bio::PhyloXML is moved to "bioruby-phyloxml"
+
+Bio::PhyloXML is split to "bioruby-phyloxml" gem.
+
+NOTE: Please uninstall "bio-phyloxml" gem, that have been created as a
+preliminary trial of splitting a module in 2012 and have not been
+maintained after that.
+
+=== Bio::SQL is moved to "bio-biosql"
+
+Bio::SQL is split to "bio-biosql" gem.
+
+
+== New features and improvements
+
+=== HTTPS is used to access NCBI web services
+
+As you may know, NCBI announced that all HTTP resources will be switched
+to HTTPS on September 30, 2016. To follow the transition, all URLs for
+accessing NCBI E-utilities in BioRuby are changed to use HTTPS.
+
+In BioRuby, the following classes/modules are affected.
+
+* Bio::NCBI::REST and descending classes
+* Bio::PubMed
+
+In some rare cases (especially when building Ruby and/or OpenSSL by yourself
+from source code), Ruby does not include SSL/TLS support, or Ruby fails to
+detect SSL root certificates. In such cases, you may need to reinstall or
+upgrade Ruby, OpenSSL (or alternatives), and/or SSL root certificates with
+appropriate configuration options. Alternatively, installing binary packages
+is generally a good idea.
+
+=== KEGG::GENES#diseases and related methods are added
+
+The following methods are added to KEGG::GENES, contributed by @kojix2.
+
+* networks_as_strings
+* diseases_as_strings
+* diseases_as_hash
+* diseases
+* drug_targets_as_strings
+
+=== Pre-calculated ambiguity codon tables in Bio::CodonTable
+
+Pre-calculated ambiguity codon tables are added, contributed by
+Tomoaki NISHIYAMA.
+
+
+== Bug fixes
+
+* Fixed a parser bug in Bio::Fasta::Report, FASTA output (-m 10) parser,
+  contributed by William Van Etten and Mark Wilkinson via GitHub.
+* HTTPS is used to access GenomeNet BLAST web service, contributed
+  by @ramadis via GitHub.
+* Bio::AAindex documentation fix, suggested by @kojix2 via GitHub.
+* Suppress warning messages in Ruby 2.4 and later.
+
+
+== Incompatible changes
+
+=== Bio::Taxonomy is removed and merged to Bio::PhyloXML::Taxonomy
+
+Bio::Taxonomy in lib/bio/db/phyloxml/phyloxml_elements.rb was written for
+PhyloXML in 2009. It was intended to become general taxonomy data class in
+BioRuby in these days. However, no efforts have been made to improve the
+Bio::Taxonomy class, and it still remains to be a PhyloXML specific class.
+Because Bio::PhyloXML is split as a different Gem (Biogem) package, we now
+decide to remove Bio::Taxonomy and merge it to Bio::PhyloXML::Taxonomy.
+
+In the codes using Bio::Taxonomy directly, changing Bio::Taxonomy to
+Bio::PhyloXML::Taxonomy or adding the following monkey patch may be needed.
+
+   module Bio
+      unless defined? Taxonomy
+         Taxonomy = Bio::PhyloXML::Taxonomy
+      end
+   end
+
+In the future, Bio::Taxonomy might be added as general taxonomy data class.
+The new Bio::Taxonomy might be incompatible with the current Bio::Taxonmy.
+
+=== Some features are moved to separete gems
+
+Some features are split to separete gems and removed from this "bio" gem.
+See the above "Features moved to separete gems" topics for details.
+
+== Known issues
+
+The following issues are added or updated. See KNOWN_ISSUES.rdoc for other
+already known issues.
+
+
+== Other important news
+
+=== Ruby 1.8 is no longer supported
+
+Ruby 1.8.x is no longer supported. Though unsupported, some components
+may still run on Ruby 1.8.7. Please use Ruby 1.8.7 at your own risk
+with this version of BioRuby.
+
+=== Installation without RubyGems is no longer supported
+
+Installation by using setup.rb without RubyGems is no longer supported,
+and setup.rb is no longer included in BioRuby distribution.
+
