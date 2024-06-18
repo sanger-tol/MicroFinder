@@ -26,6 +26,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Install packages
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: |
+        sudo apt update -qy
+        sudo apt install libgdbm6 libgdbm-dev
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
