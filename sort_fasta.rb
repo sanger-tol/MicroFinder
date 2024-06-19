@@ -9,7 +9,7 @@ require 'yaml'
 require 'bio'
 require 'optparse'
 
-Version = '1.0'
+Version = '1.1'
 
 options = {}
 OptionParser.new do |opts|
