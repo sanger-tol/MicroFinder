@@ -17,8 +17,8 @@ OptionParser.new do |opts|
 
   opts.on('-f FASTA', '--fasta FASTA', String, 'FASTA file')
   opts.on('-o TSV', '--order TSV', String, 'TSV file with sort order')
-  opts.on('-l', '--length_cutoff LEN', Integer, 'Sequences > LEN bp will not be sorted')
-  opts.on('-m', '--minimum_length MIN', Integer, 'Sequences > MIN bp will not be sorted')
+  opts.on('-l', '--length_cutoff LEN', Integer, 'sequences > LEN bp will not be sorted')
+  opts.on('-m', '--minimum_length MIN', Integer, 'sequences < MIN bp will not be sorted')
   opts.on('-v', '--version', 'Prints version') do
     puts $0+ ': ' + opts.version
     exit
