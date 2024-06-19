@@ -9,7 +9,7 @@ require 'yaml'
 require 'bio'
 require 'optparse'
 
-Version = 'v1.0'
+Version = '1.0'
 
 options = {}
 OptionParser.new do |opts|
@@ -18,8 +18,9 @@ OptionParser.new do |opts|
   opts.on('-f FASTA', '--fasta FASTA', String, 'FASTA file')
   opts.on('-o TSV', '--order TSV', String, 'TSV file with sort order')
   opts.on('-l', '--length_cutoff LEN', Integer, 'Sequences > LEN bp will not be sorted')
+  opts.on('-m', '--minimum_length MIN', Integer, 'Sequences > MIN bp will not be sorted')
   opts.on('-v', '--version', 'Prints version') do
-    puts opts.version
+    puts $0+ ': ' + opts.version
     exit
   end
 end.parse!(into: options)
@@ -38,6 +39,7 @@ Bio::FlatFile.open(Bio::FastaFormat, options[:fasta]) do |ff|
   ff.each do |entry|
     id_to_count[entry.entry_id] ||= 0
     id_to_count[entry.entry_id] = 0 if options[:length_cutoff] && entry.length > options[:length_cutoff]
+    id_to_count[entry.entry_id] = 0 if options[:minimum_length] && entry.length < options[:minimum_length]
     id_to_size[entry.entry_id] = entry.seq.size
     gdb[entry.entry_id] = entry.to_yaml
   end
