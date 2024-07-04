@@ -7,4 +7,4 @@ RUN bundle install
 
 COPY . .
 
-ENTRYPOINT ["./sort_fasta.rb"]
+ENTRYPOINT ["/usr/src/app/sort_fasta.rb"]
