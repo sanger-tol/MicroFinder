@@ -1,17 +1,24 @@
+# Installation
 ```
-Install dependencies with
-    bundler install
+git clone https://github.com/Aquatic-Symbiosis-Genomics-Project/MicroFinder.git
+
+# Install dependencies with
+bundler install
 ```
 
+# Uage:
 ```
-Usage: sort_fasta.rb [options]
-    -f, --fasta FASTA               FASTA file
-    -o, --order TSV                 TSV file with sort order
-    -l, --length_cutoff LEN         sequences > LEN bp will not be sorted
-    -m, --minimum_length MIN        sequences < MIN bp will not be sorted
-    -h, --help                      prints this help
-    -v, --version                   print version
+MicroFinder.sh input_fasta max_scaffold_cutoff
+
 ```
-* the order file is tab separated with an id and an integer (the higher, the further to the beginning it will be sorted)
-* the -l / -m options will set the score to 0 for sequences longer/shorter
-* equal scoring ids will be sorted by sequence length (with the smaller ones towards the end).
+
+or with singularity:
+```
+singularity run -B `pwd`:/data docker://ghcr.io/aquatic-symbiosis-genomics-project/microfinder:latest /data/bLarArg3.1.HAP1.primary.curated.fa 1000000
+```
+
+or docker:
+```
+docker run -v `pwd`:/data ghcr.io/aquatic-symbiosis-genomics-project/microfinder:latest /data/bLarArg3.1.HAP1.primary.curated.fa 1000000
+
+```

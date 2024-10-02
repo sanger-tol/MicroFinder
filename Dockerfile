@@ -13,4 +13,5 @@ RUN cd /opt && \
     cd miniprot && \
     make
 
+ENV PATH "$PATH:/opt/miniprot"
 ENTRYPOINT ["/usr/src/app/MicroFinder.v0.2.sh"]

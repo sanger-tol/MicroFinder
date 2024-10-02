@@ -15,10 +15,10 @@ fi
  
 input_assembly=$1
 length_cutoff=$2
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # map gene set
-
-/opt/miniprot/miniprot --gff ${input_assembly} /usr/src/app/data/MicroFinder_prot_set.v0.1.fa.gz > ${input_assembly}.MicroFinder.gff
+miniprot --gff ${input_assembly} $SCRIPT_DIR/data/MicroFinder_prot_set.v0.1.fa.gz > ${input_assembly}.MicroFinder.gff
 
 # Filter hits
 
@@ -26,4 +26,4 @@ awk '$3== "mRNA"' ${input_assembly}.MicroFinder.gff | grep -w "Rank=1" | cut -f1
 
 # Reorder assembly
 
-/usr/src/app/sort_fasta.rb -f ${input_assembly} -o ${input_assembly}.MicroFinder.order.tsv -l ${length_cutoff} > ${input_assembly}.MicroFinder.ordered.fa
+$SCRIPT_DIR/sort_fasta.rb -f ${input_assembly} -o ${input_assembly}.MicroFinder.order.tsv -l ${length_cutoff} > ${input_assembly}.MicroFinder.ordered.fa
