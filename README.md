@@ -6,7 +6,7 @@ git clone https://github.com/Aquatic-Symbiosis-Genomics-Project/MicroFinder.git
 bundler install
 ```
 
-# Uage:
+# Usage:
 ```
 MicroFinder.sh input_fasta max_scaffold_cutoff
 
