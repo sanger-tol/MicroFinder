@@ -1,5 +1,7 @@
 [UNDER CONSTRUCTION]
 
+Information on running microfinder to aid bird genome curation here: https://zenodo.org/records/13913870. 
+
 # Installation
 ```
 git clone https://github.com/Aquatic-Symbiosis-Genomics-Project/MicroFinder.git
