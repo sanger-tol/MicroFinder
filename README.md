@@ -4,7 +4,7 @@ Information on running microfinder to aid bird genome curation here: https://zen
 
 # Installation
 ```
-git clone https://github.com/Aquatic-Symbiosis-Genomics-Project/MicroFinder.git
+git clone https://github.com/sanger-tol/MicroFinder.git
 
 # Install dependencies with
 bundler install
