@@ -9,7 +9,7 @@ COPY . .
 
 # add miniprot
 RUN cd /opt && \
-    git clone --depth=1 https://github.com/lh3/miniprot && \
+    git clone --depth=1 --branch=v0.14 https://github.com/lh3/miniprot && \
     cd miniprot && \
     make
 
