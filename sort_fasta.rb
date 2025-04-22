@@ -5,6 +5,7 @@
 
 require 'bundler/setup'
 require 'gdbm'
+require 'tempfile'
 require 'yaml'
 require 'bio'
 require 'optparse'
@@ -25,32 +26,38 @@ OptionParser.new do |opts|
   end
 end.parse!(into: options)
 
-dbfile = 'seqstore.db'
-gdb = GDBM.new(dbfile, nil, GDBM::NEWDB)
-
-id_to_count = {}
-File.open(options[:order]).each do |line|
-  (id, count) = line.chomp.split
-  id_to_count[id] = count.to_i
-end
-
-id_to_size = {}
-Bio::FlatFile.open(Bio::FastaFormat, options[:fasta]) do |ff|
-  ff.each do |entry|
-    id_to_count[entry.entry_id] ||= 0
-    id_to_count[entry.entry_id] = 0 if options[:length_cutoff] && entry.length > options[:length_cutoff]
-    id_to_count[entry.entry_id] = 0 if options[:minimum_length] && entry.length < options[:minimum_length]
-    id_to_size[entry.entry_id] = entry.seq.size
-    gdb[entry.entry_id] = entry.to_yaml
+begin
+  tmp_gdb=Tempfile.new('gdbm')
+  dbfile = tmp_gdb.path
+  gdb = GDBM.new(dbfile, nil, GDBM::NEWDB)
+  
+  id_to_count = {}
+  File.open(options[:order]).each do |line|
+    (id, count) = line.chomp.split
+    id_to_count[id] = count.to_i
   end
-end
+  
+  id_to_size = {}
+  Bio::FlatFile.open(Bio::FastaFormat, options[:fasta]) do |ff|
+    ff.each do |entry|
+      id_to_count[entry.entry_id] ||= 0
+      id_to_count[entry.entry_id] = 0 if options[:length_cutoff] && entry.length > options[:length_cutoff]
+      id_to_count[entry.entry_id] = 0 if options[:minimum_length] && entry.length < options[:minimum_length]
+      id_to_size[entry.entry_id] = entry.seq.size
+      gdb[entry.entry_id] = entry.to_yaml
+    end
+  end
+  
+  gdb.keys.sort_by  do |e|
+    [id_to_count[e], id_to_size[e]]
+  end.reverse.each  do |id|
+    e = YAML.safe_load(gdb[id], permitted_classes: [Bio::FastaFormat, Bio::FastaDefline, Bio::Sequence::Generic])
+    puts e.seq.to_fasta(e.definition)
+  end
+  
+  gdb.close
 
-gdb.keys.sort_by  do |e|
-  [id_to_count[e], id_to_size[e]]
-end.reverse.each  do |id|
-  e = YAML.safe_load(gdb[id], permitted_classes: [Bio::FastaFormat, Bio::FastaDefline, Bio::Sequence::Generic])
-  puts e.seq.to_fasta(e.definition)
+ensure
+  tmp_gdb.close
+  tmp_gdb.unlink
 end
-
-gdb.close
-File.delete(dbfile)
