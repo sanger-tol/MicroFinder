@@ -1,4 +1,3 @@
-[UNDER CONSTRUCTION]
 
 Information on running MicroFinder to aid bird genome curation can be found here: https://zenodo.org/records/13913870. 
 
