@@ -19,28 +19,28 @@ bundler install
 
 ## Usage
 ```
-MicroFinder.sh input_fasta output_prefix max_scaffold_length_cutoff
+MicroFinder.sh input_fasta max_scaffold_length_cutoff
 
 ```
 
 or with singularity:
 ```
-singularity run -B `pwd`:/data docker://ghcr.io/sanger-tol/microfinder:main /data/bLarArg3.1.HAP1.primary.curated.fa bLarArg3 5000000
+singularity run -B `pwd`:/data docker://ghcr.io/sanger-tol/microfinder:main /data/bLarArg3.1.HAP1.primary.curated.fa 5000000
 ```
 
 or docker:
 ```
-docker run -v `pwd`:/data ghcr.io/sanger-tol/microfinder:main /data/bLarArg3.1.HAP1.primary.curated.fa bLarArg3 5000000
+docker run -v `pwd`:/data ghcr.io/sanger-tol/microfinder:main /data/bLarArg3.1.HAP1.primary.curated.fa 5000000
 
 ```
 
 ## Output files
 
-miniprot alignments: `<output_prefix>.MicroFinder.gff`
+miniprot alignments: `<input_fasta>.MicroFinder.gff`
 
-Counts file of MicroFinder hits per scaffold: `<output_prefix>.MicroFinder.order.tsv`
+Counts file of MicroFinder hits per scaffold: `<input_fasta>.MicroFinder.order.tsv`
 
-MicroFinder-ordered assembly FASTA file: `<output_prefix>.MicroFinder.ordered.fa`
+MicroFinder-ordered assembly FASTA file: `<input_fasta>.MicroFinder.ordered.fa`
 
 ## Hi-C map construction for downstream manual curation
 
