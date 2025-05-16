@@ -4,8 +4,6 @@
 
 # Changes from v0.1: Updated to MicroFinder naming.
 
-# Currently needs to be run in curation_v2 env.
-
 if [ $# -ne 2 ]; then
     echo $0: usage: bash MircoFinder.sh input_assembly scaffold_length_cutoff
     exit 1
