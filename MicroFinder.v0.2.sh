@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# v0.2 script - in future will update locations of gene set, tools etc. so will work with a release.
+# v0.2 script
 
 # Changes from v0.1: Updated to MicroFinder naming.
 
